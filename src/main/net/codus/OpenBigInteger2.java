@@ -68,7 +68,7 @@ import java.util.Random;
  * @since JDK1.1
  */
 
-public class OpenBigInteger extends Number implements Comparable<OpenBigInteger> {
+public class OpenBigInteger2 extends Number implements Comparable<OpenBigInteger2> {
     /**
      * The signum of this OpenBigInteger: -1 for negative, 0 for zero, or
      * 1 for positive.  Note that the OpenBigInteger zero <i>must</i> have
@@ -157,7 +157,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *         OpenBigInteger.
      * @throws NumberFormatException {@code val} is zero bytes long.
      */
-    public OpenBigInteger(byte[] val) {
+    public OpenBigInteger2(byte[] val) {
         if (val.length == 0)
             throw new NumberFormatException("Zero length OpenBigInteger");
 
@@ -176,7 +176,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * OpenBigInteger. The input array is assumed to be in <i>big-endian</i>
      * int-order: the most significant int is in the zeroth element.
      */
-    private OpenBigInteger(int[] val) {
+    private OpenBigInteger2(int[] val) {
         if (val.length == 0)
             throw new NumberFormatException("Zero length OpenBigInteger");
 
@@ -205,7 +205,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *         legal values (-1, 0, and 1), or {@code signum} is 0 and
      *         {@code magnitude} contains one or more non-zero bytes.
      */
-    public OpenBigInteger(int signum, byte[] magnitude) {
+    public OpenBigInteger2(int signum, byte[] magnitude) {
         this.mag = stripLeadingZeroBytes(magnitude);
 
         if (signum < -1 || signum > 1)
@@ -226,7 +226,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * arguments and copies the magnitude so this constructor would be
      * safe for external use.
      */
-    private OpenBigInteger(int signum, int[] magnitude) {
+    private OpenBigInteger2(int signum, int[] magnitude) {
         this.mag = stripLeadingZeroInts(magnitude);
 
         if (signum < -1 || signum > 1)
@@ -258,7 +258,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *         {@link Character#MAX_RADIX}, inclusive.
      * @see    Character#digit
      */
-    public OpenBigInteger(String val, int radix) {
+    public OpenBigInteger2(String val, int radix) {
         int cursor = 0, numDigits;
         final int len = val.length();
 
@@ -326,7 +326,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
     }
 
     // Constructs a new OpenBigInteger using a char array with radix=10
-    OpenBigInteger(char[] val) {
+    OpenBigInteger2(char[] val) {
         int cursor = 0, numDigits;
         int len = val.length;
 
@@ -444,7 +444,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *         of a OpenBigInteger.
      * @see    Character#digit
      */
-    public OpenBigInteger(String val) {
+    public OpenBigInteger2(String val) {
         this(val, 10);
     }
 
@@ -461,7 +461,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @throws IllegalArgumentException {@code numBits} is negative.
      * @see #bitLength()
      */
-    public OpenBigInteger(int numBits, Random rnd) {
+    public OpenBigInteger2(int numBits, Random rnd) {
         this(1, randomBits(numBits, rnd));
     }
 
@@ -487,7 +487,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
     // Certainty required to meet the spec of probablePrime
     private static final int DEFAULT_PRIME_CERTAINTY = 100;
 
-    private static final OpenBigInteger SMALL_PRIME_PRODUCT
+    private static final OpenBigInteger2 SMALL_PRIME_PRODUCT
                        = valueOf(3L*5*7*11*13*17*19*23*29*31*37*41);
 
     private static volatile Random staticRandom;
@@ -504,7 +504,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * with the arguments reversed in two ways: it assumes that its
      * arguments are correct, and it doesn't copy the magnitude array.
      */
-    OpenBigInteger(int[] magnitude, int signum) {
+    OpenBigInteger2(int[] magnitude, int signum) {
         this.signum = (magnitude.length==0 ? 0 : signum);
         this.mag = magnitude;
     }
@@ -513,7 +513,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * This private constructor is for internal use and assumes that its
      * arguments are correct.
      */
-    private OpenBigInteger(byte[] magnitude, int signum) {
+    private OpenBigInteger2(byte[] magnitude, int signum) {
         this.signum = (magnitude.length==0 ? 0 : signum);
         this.mag = stripLeadingZeroBytes(magnitude);
     }
@@ -529,7 +529,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param  val value of the OpenBigInteger to return.
      * @return a OpenBigInteger with the specified value.
      */
-    public static OpenBigInteger valueOf(long val) {
+    public static OpenBigInteger2 valueOf(long val) {
         // If -MAX_CONSTANT < val < MAX_CONSTANT, return stashed constant
         if (val == 0)
             return ZERO;
@@ -538,13 +538,13 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
         else if (val < 0 && val >= -MAX_CONSTANT)
             return negConst[(int) -val];
 
-        return new OpenBigInteger(val);
+        return new OpenBigInteger2(val);
     }
 
     /**
      * Constructs a OpenBigInteger with the specified value, which may not be zero.
      */
-    private OpenBigInteger(long val) {
+    private OpenBigInteger2(long val) {
         if (val < 0) {
             val = -val;
             signum = -1;
@@ -568,8 +568,8 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * Assumes that the input array will not be modified (the returned
      * OpenBigInteger will reference the input array if feasible).
      */
-    private static OpenBigInteger valueOf(int val[]) {
-        return (val[0]>0 ? new OpenBigInteger(val, 1) : new OpenBigInteger(val));
+    private static OpenBigInteger2 valueOf(int val[]) {
+        return (val[0]>0 ? new OpenBigInteger2(val, 1) : new OpenBigInteger2(val));
     }
 
     // Constants
@@ -578,14 +578,14 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * Initialize static constant array when class is loaded.
      */
     private final static int MAX_CONSTANT = 16;
-    private static OpenBigInteger posConst[] = new OpenBigInteger[MAX_CONSTANT+1];
-    private static OpenBigInteger negConst[] = new OpenBigInteger[MAX_CONSTANT+1];
+    private static OpenBigInteger2 posConst[] = new OpenBigInteger2[MAX_CONSTANT+1];
+    private static OpenBigInteger2 negConst[] = new OpenBigInteger2[MAX_CONSTANT+1];
     static {
         for (int i = 1; i <= MAX_CONSTANT; i++) {
             int[] magnitude = new int[1];
             magnitude[0] = i;
-            posConst[i] = new OpenBigInteger(magnitude,  1);
-            negConst[i] = new OpenBigInteger(magnitude, -1);
+            posConst[i] = new OpenBigInteger2(magnitude,  1);
+            negConst[i] = new OpenBigInteger2(magnitude, -1);
         }
     }
 
@@ -594,26 +594,26 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *
      * @since   1.2
      */
-    public static final OpenBigInteger ZERO = new OpenBigInteger(new int[0], 0);
+    public static final OpenBigInteger2 ZERO = new OpenBigInteger2(new int[0], 0);
 
     /**
      * The OpenBigInteger constant one.
      *
      * @since   1.2
      */
-    public static final OpenBigInteger ONE = valueOf(1);
+    public static final OpenBigInteger2 ONE = valueOf(1);
 
     /**
      * The OpenBigInteger constant two.  (Not exported.)
      */
-    private static final OpenBigInteger TWO = valueOf(2);
+    private static final OpenBigInteger2 TWO = valueOf(2);
 
     /**
      * The OpenBigInteger constant ten.
      *
      * @since   1.5
      */
-    public static final OpenBigInteger TEN = valueOf(10);
+    public static final OpenBigInteger2 TEN = valueOf(10);
 
     // Arithmetic Operations
 
@@ -623,22 +623,22 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param  val value to be added to this OpenBigInteger.
      * @return {@code this + val}
      */
-    public OpenBigInteger add(OpenBigInteger val) {
+    public OpenBigInteger2 add(OpenBigInteger2 val) {
         if (val.signum == 0)
             return this;
         if (signum == 0)
             return val;
         if (val.signum == signum)
-            return new OpenBigInteger(add(mag, val.mag), signum);
+            return new OpenBigInteger2(add(mag, val.mag), signum);
 
         int cmp = compareMagnitude(val);
         if (cmp == 0)
             return ZERO;
-        int[] resultMag = (cmp > 0 ? subtract(mag, val.mag)
-                           : subtract(val.mag, mag));
+        int[] resultMag = (cmp > 0 ? subtract(mag, start, val.mag,val.start)
+                           : subtract(val.mag, val.start, mag, start));
         resultMag = trustedStripLeadingZeroInts(resultMag);
 
-        return new OpenBigInteger(resultMag, cmp == signum ? 1 : -1);
+        return new OpenBigInteger2(resultMag, cmp == signum ? 1 : -1);
     }
 
     /**
@@ -691,21 +691,21 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param  val value to be subtracted from this OpenBigInteger.
      * @return {@code this - val}
      */
-    public OpenBigInteger subtract(OpenBigInteger val) {
+    public OpenBigInteger2 subtract(OpenBigInteger2 val) {
         if (val.signum == 0)
             return this;
         if (signum == 0)
             return val.negate();
         if (val.signum != signum)
-            return new OpenBigInteger(add(mag, val.mag), signum);
+            return new OpenBigInteger2(add(mag, val.mag), signum);
 
         int cmp = compareMagnitude(val);
         if (cmp == 0)
             return ZERO;
-        int[] resultMag = (cmp > 0 ? subtract(mag, val.mag)
-                           : subtract(val.mag, mag));
+        int[] resultMag = (cmp > 0 ? subtract(mag, start, val.mag, val.start)
+                           : subtract(val.mag, val.start, mag, start));
         resultMag = trustedStripLeadingZeroInts(resultMag);
-        return new OpenBigInteger(resultMag, cmp == signum ? 1 : -1);
+        return new OpenBigInteger2(resultMag, cmp == signum ? 1 : -1);
     }
 
     /**
@@ -714,14 +714,14 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * than the second.  This method allocates the space necessary to hold the
      * answer.
      */
-    private static int[] subtract(int[] big, int[] little) {
+    private static int[] subtract(int[] big, int bigStart, int[] little, int littleStart) {
         int bigIndex = big.length;
         int result[] = new int[bigIndex];
         int littleIndex = little.length;
         long difference = 0;
 
         // Subtract common parts of both numbers
-        while(littleIndex > 0) {
+        while(littleIndex > littleStart) {
             difference = (big[--bigIndex] & LONG_MASK) -
                          (little[--littleIndex] & LONG_MASK) +
                          (difference >> 32);
@@ -730,11 +730,11 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
 
         // Subtract remainder of longer number while borrow propagates
         boolean borrow = (difference >> 32 != 0);
-        while (bigIndex > 0 && borrow)
+        while (bigIndex > bigStart && borrow)
             borrow = ((result[--bigIndex] = big[bigIndex] - 1) == -1);
 
         // Copy remainder of longer number
-        while (bigIndex > 0)
+        while (bigIndex > bigStart)
             result[--bigIndex] = big[bigIndex];
 
         return result;
@@ -746,21 +746,21 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param  val value to be multiplied by this OpenBigInteger.
      * @return {@code this * val}
      */
-    public OpenBigInteger multiply(OpenBigInteger val) {
+    public OpenBigInteger2 multiply(OpenBigInteger2 val) {
         if (val.signum == 0 || signum == 0)
             return ZERO;
 
-        int[] result = multiplyToLen(mag, mag.length,
+        int[] result = multiplyToLen(mag, mag.length, 0, 
                                      val.mag, val.mag.length, null);
         result = trustedStripLeadingZeroInts(result);
-        return new OpenBigInteger(result, signum == val.signum ? 1 : -1);
+        return new OpenBigInteger2(result, signum == val.signum ? 1 : -1);
     }
 
     /**
      * Multiplies int arrays x and y to the specified lengths and places
      * the result into z. There will be no leading zeros in the resultant array.
      */
-    private int[] multiplyToLen(int[] x, int xlen, int[] y, int ylen, int[] z) {
+    private int[] multiplyToLen(int[] x, int xlen, int xignore, int[] y, int ylen, int[] z) {
         int xstart = xlen - 1;
         int ystart = ylen - 1;
 
@@ -776,7 +776,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
         }
         z[xstart] = (int)carry;
 
-        for (int i = xstart-1; i >= 0; i--) {
+        for (int i = xstart-1; i >= xignore; i--) {
             carry = 0;
             for (int j=ystart, k=ystart+1+i; j>=0; j--, k--) {
                 long product = (y[j] & LONG_MASK) *
@@ -795,11 +795,11 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *
      * @return {@code this<sup>2</sup>}
      */
-    private OpenBigInteger square() {
+    private OpenBigInteger2 square() {
         if (signum == 0)
             return ZERO;
         int[] z = squareToLen(mag, mag.length, null);
-        return new OpenBigInteger(trustedStripLeadingZeroInts(z), 1);
+        return new OpenBigInteger2(trustedStripLeadingZeroInts(z), 1);
     }
 
     /**
@@ -878,7 +878,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @throws ArithmeticException {@code exponent} is negative.  (This would
      *         cause the operation to yield a non-integer value.)
      */
-    public OpenBigInteger pow(int exponent) {
+    public OpenBigInteger2 pow(int exponent) {
         if (exponent < 0)
             throw new ArithmeticException("Negative exponent");
         if (signum==0)
@@ -891,7 +891,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
 
         while (exponent != 0) {
             if ((exponent & 1)==1) {
-                result = multiplyToLen(result, result.length,
+                result = multiplyToLen(result, result.length, 0,
                                        baseToPow2, baseToPow2.length, null);
                 result = trustedStripLeadingZeroInts(result);
             }
@@ -900,7 +900,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
                 baseToPow2 = trustedStripLeadingZeroInts(baseToPow2);
             }
         }
-        return new OpenBigInteger(result, newSign);
+        return new OpenBigInteger2(result, newSign);
     }
 
     /**
@@ -981,7 +981,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *
      * @return {@code abs(this)}
      */
-    public OpenBigInteger abs() {
+    public OpenBigInteger2 abs() {
         return (signum >= 0 ? this : this.negate());
     }
 
@@ -990,8 +990,8 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *
      * @return {@code -this}
      */
-    public OpenBigInteger negate() {
-        return new OpenBigInteger(this.mag, -this.signum);
+    public OpenBigInteger2 negate() {
+        return new OpenBigInteger2(this.mag, -this.signum);
     }
 
     /**
@@ -1109,13 +1109,13 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
     /**
      * Returns a OpenBigInteger whose value is (this ** exponent) mod (2**p)
      */
-    private OpenBigInteger modPow2(OpenBigInteger exponent, int p) {
+    private OpenBigInteger2 modPow2(OpenBigInteger2 exponent, int p) {
         /*
          * Perform exponentiation using repeated squaring trick, chopping off
          * high order bits as indicated by modulus.
          */
-        OpenBigInteger result = valueOf(1);
-        OpenBigInteger baseToPow2 = this.mod2(p);
+        OpenBigInteger2 result = valueOf(1);
+        OpenBigInteger2 baseToPow2 = this.mod2(p);
         int expOffset = 0;
 
         int limit = exponent.bitLength();
@@ -1138,7 +1138,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * Returns a OpenBigInteger whose value is this mod(2**p).
      * Assumes that this {@code OpenBigInteger >= 0} and {@code p > 0}.
      */
-    private OpenBigInteger mod2(int p) {
+    private OpenBigInteger2 mod2(int p) {
         if (bitLength() <= p)
             return this;
 
@@ -1152,7 +1152,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
         int excessBits = (numInts << 5) - p;
         mag[0] &= (1L << (32-excessBits)) - 1;
 
-        return (mag[0]==0 ? new OpenBigInteger(1, mag) : new OpenBigInteger(mag, 1));
+        return (mag[0]==0 ? new OpenBigInteger2(1, mag) : new OpenBigInteger2(mag, 1));
     }
 
     // Shift Operations
@@ -1169,7 +1169,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *         Integer.MIN_VALUE}.
      * @see #shiftRight
      */
-    public OpenBigInteger shiftLeft(int n) {
+    public OpenBigInteger2 shiftLeft(int n) {
         if (signum == 0)
             return ZERO;
         if (n==0)
@@ -1207,7 +1207,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
             newMag[i] = mag[j] << nBits;
         }
 
-        return new OpenBigInteger(newMag, signum);
+        return new OpenBigInteger2(newMag, signum);
     }
 
     /**
@@ -1222,7 +1222,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *         Integer.MIN_VALUE}.
      * @see #shiftLeft
      */
-    public OpenBigInteger shiftRight(int n) {
+    public OpenBigInteger2 shiftRight(int n) {
         if (n==0)
             return this;
         if (n<0) {
@@ -1275,7 +1275,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
                 newMag = javaIncrement(newMag);
         }
 
-        return new OpenBigInteger(newMag, signum);
+        return new OpenBigInteger2(newMag, signum);
     }
 
     int[] javaIncrement(int[] val) {
@@ -1299,7 +1299,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param val value to be AND'ed with this OpenBigInteger.
      * @return {@code this & val}
      */
-    public OpenBigInteger and(OpenBigInteger val) {
+    public OpenBigInteger2 and(OpenBigInteger2 val) {
         int[] result = new int[Math.max(intLength(), val.intLength())];
         for (int i=0; i<result.length; i++)
             result[i] = (getInt(result.length-i-1)
@@ -1316,7 +1316,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param val value to be OR'ed with this OpenBigInteger.
      * @return {@code this | val}
      */
-    public OpenBigInteger or(OpenBigInteger val) {
+    public OpenBigInteger2 or(OpenBigInteger2 val) {
         int[] result = new int[Math.max(intLength(), val.intLength())];
         for (int i=0; i<result.length; i++)
             result[i] = (getInt(result.length-i-1)
@@ -1333,7 +1333,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param val value to be XOR'ed with this OpenBigInteger.
      * @return {@code this ^ val}
      */
-    public OpenBigInteger xor(OpenBigInteger val) {
+    public OpenBigInteger2 xor(OpenBigInteger2 val) {
         int[] result = new int[Math.max(intLength(), val.intLength())];
         for (int i=0; i<result.length; i++)
             result[i] = (getInt(result.length-i-1)
@@ -1349,7 +1349,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      *
      * @return {@code ~this}
      */
-    public OpenBigInteger not() {
+    public OpenBigInteger2 not() {
         int[] result = new int[intLength()];
         for (int i=0; i<result.length; i++)
             result[i] = ~getInt(result.length-i-1);
@@ -1367,7 +1367,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @param val value to be complemented and AND'ed with this OpenBigInteger.
      * @return {@code this & ~val}
      */
-    public OpenBigInteger andNot(OpenBigInteger val) {
+    public OpenBigInteger2 andNot(OpenBigInteger2 val) {
         int[] result = new int[Math.max(intLength(), val.intLength())];
         for (int i=0; i<result.length; i++)
             result[i] = (getInt(result.length-i-1)
@@ -1402,7 +1402,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return {@code this | (1<<n)}
      * @throws ArithmeticException {@code n} is negative.
      */
-    public OpenBigInteger setBit(int n) {
+    public OpenBigInteger2 setBit(int n) {
         if (n<0)
             throw new ArithmeticException("Negative bit address");
 
@@ -1426,7 +1426,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return {@code this & ~(1<<n)}
      * @throws ArithmeticException {@code n} is negative.
      */
-    public OpenBigInteger clearBit(int n) {
+    public OpenBigInteger2 clearBit(int n) {
         if (n<0)
             throw new ArithmeticException("Negative bit address");
 
@@ -1450,7 +1450,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return {@code this ^ (1<<n)}
      * @throws ArithmeticException {@code n} is negative.
      */
-    public OpenBigInteger flipBit(int n) {
+    public OpenBigInteger2 flipBit(int n) {
         if (n<0)
             throw new ArithmeticException("Negative bit address");
 
@@ -1508,17 +1508,17 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
         @SuppressWarnings("deprecation") int n = bitLength - 1;
         if (n == -1) { // bitLength not initialized yet
             int[] m = mag;
-            int len = m.length;
+            int len = m.length - start;
             if (len == 0) {
                 n = 0; // offset by one to initialize
             }  else {
                 // Calculate the bit length of the magnitude
-                int magBitLength = ((len - 1) << 5) + bitLengthForInt(mag[0]);
+                int magBitLength = ((len - 1) << 5) + bitLengthForInt(mag[start]);
                  if (signum < 0) {
                      // Check if magnitude is a power of two
-                     boolean pow2 = (Integer.bitCount(mag[0]) == 1);
+                     boolean pow2 = (Integer.bitCount(mag[start]) == 1);
                      for(int i=1; i< len && pow2; i++)
-                         pow2 = (mag[i] == 0);
+                         pow2 = (mag[i+start] == 0);
 
                      n = (pow2 ? magBitLength -1 : magBitLength);
                  } else {
@@ -1573,7 +1573,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return -1, 0 or 1 as this OpenBigInteger is numerically less than, equal
      *         to, or greater than {@code val}.
      */
-    public int compareTo(OpenBigInteger val) {
+    public int compareTo(OpenBigInteger2 val) {
         if (signum == val.signum) {
             switch (signum) {
             case 1:
@@ -1595,7 +1595,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return -1, 0 or 1 as this magnitude array is less than, equal to or
      *         greater than the magnitude aray for the specified OpenBigInteger's.
      */
-    final int compareMagnitude(OpenBigInteger val) {
+    final int compareMagnitude(OpenBigInteger2 val) {
         int[] m1 = mag;
         int len1 = m1.length;
         int[] m2 = val.mag;
@@ -1625,10 +1625,10 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
         if (x == this)
             return true;
 
-        if (!(x instanceof OpenBigInteger))
+        if (!(x instanceof OpenBigInteger2))
             return false;
 
-        OpenBigInteger xInt = (OpenBigInteger) x;
+        OpenBigInteger2 xInt = (OpenBigInteger2) x;
         if (xInt.signum != signum)
             return false;
 
@@ -1652,7 +1652,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return the OpenBigInteger whose value is the lesser of this OpenBigInteger and
      *         {@code val}.  If they are equal, either may be returned.
      */
-    public OpenBigInteger min(OpenBigInteger val) {
+    public OpenBigInteger2 min(OpenBigInteger2 val) {
         return (compareTo(val)<0 ? this : val);
     }
 
@@ -1663,7 +1663,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
      * @return the OpenBigInteger whose value is the greater of this and
      *         {@code val}.  If they are equal, either may be returned.
      */
-    public OpenBigInteger max(OpenBigInteger val) {
+    public OpenBigInteger2 max(OpenBigInteger2 val) {
         return (compareTo(val)>0 ? this : val);
     }
 
@@ -2028,7 +2028,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
         62, 39, 31, 27, 24, 22, 20, 19, 18, 18, 17, 17, 16, 16, 15, 15, 15, 14,
         14, 14, 14, 13, 13, 13, 13, 13, 13, 12, 12, 12, 12, 12, 12, 12, 12};
 
-    private static OpenBigInteger longRadix[] = {null, null,
+    private static OpenBigInteger2 longRadix[] = {null, null,
         valueOf(0x4000000000000000L), valueOf(0x383d9170b85ff80bL),
         valueOf(0x4000000000000000L), valueOf(0x6765c793fa10079dL),
         valueOf(0x41c21cb8e1000000L), valueOf(0x3642798750226111L),
@@ -2130,7 +2130,7 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
     /** use serialVersionUID from JDK 1.1. for interoperability */
     private static final long serialVersionUID = -8287574255936472291L;
 
-	private OpenBigInteger multiplyer;
+	private OpenBigInteger2 multiplyer;
 	private int[] multiMag = null;
 
 	public BigInteger toBigInteger() {
@@ -2142,9 +2142,11 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
 		return lastInt & 0x0000FFFF;
 	}
 
+	int start = 0;
+	
 	public void divideByBase() {
 		int last16bytes = 0 ,prevBytes = 0;
-		for (int n=0; n<mag.length; n++){
+		for (int n=start; n<mag.length; n++){
 			int magInt = mag[n];
 			
 			// store the last 16 bytes
@@ -2153,13 +2155,15 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
 			mag[n] >>= 16;
 			mag[n] &=  0x0000FFFF;
 		
-			if (n>0) {
+			if (n>start) {
 				mag[n] |= prevBytes;
 			}
 		}
 		
-		if (mag[0] == 0 && mag.length > 1){
-			this.mag = Arrays.copyOfRange(mag, 1, mag.length);
+		// If the most significant byte is zero, then we should ignore the first int
+		// by incrementing start
+		if (mag[start] == 0 && (mag.length - start) > 1){
+			start++;
 			this.bitLength = 0;
 		}
 	}
@@ -2167,50 +2171,60 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
 	int[] lastDigitHolder = new int[1];
 	
 	// working now
-	public void subtractMultipication(OpenBigInteger multiplyer, int lastDigit) {
+	public void subtractMultipication(OpenBigInteger2 multiplyer, int lastDigit) {
 		lastDigitHolder[0] = lastDigit;
-		multiplyToLen(multiplyer.mag, multiplyer.mag.length, lastDigitHolder, 1, multiMag);
+		multiplyToLen(multiplyer.mag, multiplyer.mag.length, this.start, lastDigitHolder, 1, multiMag);
 		
-		int[] multiMagToUse;
-		if (multiMag[0] == 0)
-			multiMagToUse = java.util.Arrays.copyOfRange(multiMag, 1, multiMag.length);
-		else
-			multiMagToUse = multiMag;
+		int keep;
+		for (keep = 0; keep < multiMag.length && multiMag[keep] == 0; keep++)
+            ;
+		int multimagStart = keep;
+		// old code :
+//		int[] multiMagToUse;
+//		if (multiMag[0] == 0)
+//			multiMagToUse = java.util.Arrays.copyOfRange(multiMag, 1, multiMag.length);
+//		else
+//			multiMagToUse = multiMag;
 		
-		int cmp = compareMagnitude(multiMagToUse);
-		//System.out.println("multiMagToUse:" + Arrays.toString(multiMagToUse) + " cmp:" + cmp);
+		int cmp = compareMagnitude(multiMag, multimagStart);
+		//System.out.println("multiMagToUse:" + Arrays.toString(multiMag) + " multimagStart:"+multimagStart+ " cmp:" + cmp);
         if (cmp == 0){
         	this.mag = new int[0];
         	this.signum = 0;
+        	start = 0;
         } else {
-	        int[] resultMag = (cmp > 0 ? subtract(mag, multiMagToUse)
-	                           : subtract(multiMagToUse, mag));
-	        resultMag = trustedStripLeadingZeroInts(resultMag);
-	        this.signum = this.mag.length == 0 ? 0 : (cmp == signum ? 1 : -1);
-	        this.mag = resultMag;
+	        this.mag = (cmp > 0 ? subtract(mag, start,  multiMag , multimagStart)
+	                           : subtract(multiMag, multimagStart, mag, start));
+//	        resultMag = trustedStripLeadingZeroInts(resultMag);
+
+	        // Find first nonzero byte
+	        for (keep = 0; keep < mag.length && mag[keep] == 0; keep++)
+	            ;
+	        start = keep;
+	        this.signum = (this.mag.length -start) == 0 ? 0 : (cmp == signum ? 1 : -1);
         }
         this.bitLength = 0;
         this.bitCount = 0;
 	}
 	
-	final int compareMagnitude(int[] m2) {
+	final int compareMagnitude(int[] m2, int m2Ignore) {
         int[] m1 = mag;
-        int len1 = m1.length;
-        int len2 = m2.length;
+        int len1 = m1.length - start;
+        int len2 = m2.length - m2Ignore;
         if (len1 < len2)
             return -1;
         if (len1 > len2)
             return 1;
         for (int i = 0; i < len1; i++) {
-            int a = m1[i];
-            int b = m2[i];
+            int a = m1[start+i];
+            int b = m2[m2Ignore+i];
             if (a != b)
                 return ((a & LONG_MASK) < (b & LONG_MASK)) ? -1 : 1;
         }
         return 0;
     }
 
-	public void initializeMultiplyer(OpenBigInteger multiplyer) {
+	public void initializeMultiplyer(OpenBigInteger2 multiplyer) {
 		this.multiplyer = multiplyer;
 		this.multiMag = new int[multiplyer.mag.length + 1];
 	}
@@ -2221,8 +2235,10 @@ public class OpenBigInteger extends Number implements Comparable<OpenBigInteger>
 		
 		// Divide by the base :
 		divideByBase();
-		System.out.println("step :" + this.toBigInteger().toString());
+//		System.out.println("step :" + this.toBigInteger().toString());
+//		System.out.println("Before substraction :" + Arrays.toString(mag) +" length :" + mag.length +" start :" + start);
 		subtractMultipication(multiplyer, lastDigit);
+//		System.out.println("After substraction :" + Arrays.toString(mag) +" length :" + mag.length +" start :" + start);
 	}
 
 }

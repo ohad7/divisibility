@@ -6,15 +6,15 @@ import java.util.Arrays;
 public class EfficientDivisibility implements Divisibility{
 	
 	private static final int BASE = 256*256;
-	private static final OpenBigInteger BASE_BI = new OpenBigInteger("" + BASE);
+	private static final OpenBigInteger2 BASE_BI = new OpenBigInteger2("" + BASE);
 
-	private OpenBigInteger[] multiplierByLastDigit = new OpenBigInteger[BASE];
+	private OpenBigInteger2[] multiplierByLastDigit = new OpenBigInteger2[BASE];
 	private int[] intMultiplierByLastDigit = new int[BASE];
 	
 	
 	public EfficientDivisibility() {
 		for (int i=1; i<BASE; i+=2){
-			multiplierByLastDigit[i] = new OpenBigInteger(""+findMultiplyerByLastDigit(i, BASE));
+			multiplierByLastDigit[i] = new OpenBigInteger2(""+findMultiplyerByLastDigit(i, BASE));
 		}
 	}
 	
@@ -34,21 +34,20 @@ public class EfficientDivisibility implements Divisibility{
 	
 	@Override
 	public boolean isDivisibile(BigInteger number, BigInteger prime) {
-		return isDivisibile(new OpenBigInteger(number.toByteArray()), new OpenBigInteger(prime.toByteArray()));
+		return isDivisibile(new OpenBigInteger2(number.toByteArray()), new OpenBigInteger2(prime.toByteArray()));
 	}
 	
 	// working now
-	public boolean isDivisibile(OpenBigInteger number , OpenBigInteger prime){
-		OpenBigInteger multiplyer = findMultiplyer(prime); 
-		OpenBigInteger next = number;
+	public boolean isDivisibile(OpenBigInteger2 number , OpenBigInteger2 prime){
+		OpenBigInteger2 multiplyer = findMultiplyer(prime); 
+		OpenBigInteger2 next = number;
 		next.initializeMultiplyer(multiplyer);
 		while (true){
-			int lastDigit = next.getLastDigit();
-//			OpenBigInteger numberLastDigit = OpenBigInteger.valueOf(lastDigit);
-			next.divideByBase();
-			next.subtractMultipication(multiplyer, lastDigit);
-//			next = next.subtract(numberLastDigit.multiply(multiplyer));
-//			System.out.println("Next :" + next.toString() +"  signum :" + next.signum());
+			next.step();
+//			
+//			int lastDigit = next.getLastDigit();
+//			next.divideByBase();
+//			next.subtractMultipication(multiplyer, lastDigit);
 			
 			if (next.signum() <= 0 )
 				break;
@@ -58,10 +57,10 @@ public class EfficientDivisibility implements Divisibility{
 		return result;
 	}
 	
-	private OpenBigInteger findMultiplyer(OpenBigInteger prime) {
+	private OpenBigInteger2 findMultiplyer(OpenBigInteger2 prime) {
 		int lastDigit = prime.getLastDigit();
-		OpenBigInteger multiplyer = multiplierByLastDigit[lastDigit];
-		OpenBigInteger product = prime.multiply(multiplyer);
+		OpenBigInteger2 multiplyer = multiplierByLastDigit[lastDigit];
+		OpenBigInteger2 product = prime.multiply(multiplyer);
 		product.divideByBase();
 		return product;		
 	}
